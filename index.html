@@ -4,110 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Путеводитель по Ученому Корпусу</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        
+        /* Основные стили - сохранены оригинальные */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
-           font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
             background-color: #f5f1e6;
             color: #3a3327;
             line-height: 1.6;
             background-image: url('44.jpg');
             background-size: cover;
             background-attachment: fixed;
+            background-position: center;
+            max-width: 100%;
+            overflow-x: hidden;
         }
         
-       
+        /* Шапка */
         header {
             background-color: #d6c7b4;
-            padding: 2rem 0;
+            padding: 1.5rem 1rem;
             text-align: center;
             border-bottom: 3px solid #a9927d;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #5a4a3a;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
         }
         
-   
-        nav {
+        /* Навигация */
+        .nav-container {
             background-color: #a9927d;
-            padding: 1rem 0;
+            padding: 0.8rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         nav ul {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             list-style: none;
-            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 0 0.5rem;
+            gap: 0.3rem;
+        }
+        
+        nav ul::-webkit-scrollbar {
+            display: none;
         }
         
         nav li {
-            margin: 0 1rem;
+            flex-shrink: 0;
         }
         
         nav a {
             color: #f5f1e6;
             text-decoration: none;
-            font-size: 1.1rem;
-            padding: 0.5rem 1rem;
+            font-size: 0.95rem;
+            padding: 0.6rem 0.8rem;
             border-radius: 4px;
             transition: background-color 0.3s;
+            display: block;
+            white-space: nowrap;
+            font-weight: 500;
         }
         
-        nav a:hover {
+        nav a:hover, nav a:active {
             background-color: #8a7a66;
         }
         
-      
+        /* Основной контент */
         main {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem 1rem;
         }
         
         section {
-            margin-bottom: 3rem;
-            padding: 2rem;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
             background-color: #f0e9dd;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             border: 1px solid #d6c7b4;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.7rem;
+            margin-bottom: 1.2rem;
             color: #5a4a3a;
             border-bottom: 2px solid #a9927d;
             padding-bottom: 0.5rem;
+            font-variant: small-caps;
         }
         
         h3 {
-            font-size: 1.5rem;
-            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+            margin: 1.2rem 0 0.8rem;
             color: #7a6a55;
         }
         
-       
+        /* Карточки комнат */
         .room-card {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
+            margin-bottom: 1.8rem;
+            padding: 1.2rem;
             background-color: #f9f5ef;
             border-radius: 6px;
             border-left: 4px solid #a9927d;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .room-card:active {
+            transform: scale(0.995);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
         .photo-container {
@@ -129,60 +164,277 @@
             transform: scale(1.02);
         }
         
-  
+        .room-card p {
+            margin-bottom: 0.8rem;
+            text-align: justify;
+        }
+        
+        .room-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .room-card li {
+            margin-bottom: 0.4rem;
+        }
+        
+        /* Футер */
         footer {
             background-color: #5a4a3a;
             color: #f5f1e6;
             text-align: center;
-            padding: 2rem 0;
+            padding: 1.5rem 1rem;
             margin-top: 2rem;
         }
         
-   
+        /* Кнопка "Наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #a9927d;
+            color: #f5f1e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 99;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            border: 2px solid #d6c7b4;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:active {
+            background-color: #8a7a66;
+            transform: scale(0.95);
+        }
+        
+        /* Индикатор прогресса */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(214, 199, 180, 0.3);
+            z-index: 101;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #a9927d, #8a7a66);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        /* Активная ссылка навигации */
+        nav a.active {
+            background-color: #8a7a66;
+            font-weight: 600;
+        }
+        
+        /* Быстрая навигация сверху */
+        .quick-nav-btn {
+            display: none;
+        }
+        
+        /* Адаптивность */
         @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            nav li {
-                margin: 0.5rem 0;
+            header {
+                padding: 1.2rem 0.8rem;
             }
             
             h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
                 font-size: 1.7rem;
             }
             
+            .nav-container {
+                padding: 0.6rem 0;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.7rem;
+            }
+            
+            main {
+                padding: 1.2rem 0.8rem;
+            }
+            
             section {
-                padding: 1rem;
+                padding: 1.2rem;
+                margin-bottom: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
             }
             
             .room-card {
                 padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem 0.6rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            
+            nav a {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.6rem;
+            }
+            
+            main {
+                padding: 1rem 0.6rem;
+            }
+            
+            section {
+                padding: 1rem;
+                margin-bottom: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+                margin: 1rem 0 0.7rem;
+            }
+            
+            .room-card {
+                padding: 0.8rem;
+                margin-bottom: 1.3rem;
+            }
+            
+            .room-card p {
+                font-size: 0.95rem;
+            }
+            
+            footer {
+                padding: 1.2rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+        
+        /* Горизонтальная ориентация на мобильных */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .nav-container {
+                padding: 0.5rem 0;
+            }
+            
+            header {
+                padding: 0.8rem;
+            }
+            
+            main {
+                padding: 0.8rem;
+            }
+            
+            section {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+        
+        /* Улучшения для iOS */
+        input, textarea, button {
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+        
+        /* Поддержка темной темы системы */
+        @media (prefers-color-scheme: dark) {
+            body {
+                color: #e0d6c2;
+                background-color: #1a1712;
+            }
+            
+            section {
+                background-color: rgba(40, 35, 25, 0.9);
+                border-color: #5a4a3a;
+            }
+            
+            .room-card {
+                background-color: rgba(50, 45, 35, 0.9);
+            }
+            
+            h2, h3 {
+                color: #d6c7b4;
+            }
+            
+            .room-card p {
+                color: #e0d6c2;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Индикатор прокрутки -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Шапка -->
     <header>
         <h1>Путеводитель по Ученому Корпусу</h1>
     </header>
     
-    <nav>
-        <ul>
-            <li><a href="#common">Общие комнаты</a></li>
-            <li><a href="#medics">Корпус медиков</a></li>
-            <li><a href="#liquidators">Корпус ликвидаторов</a></li>
-            <li><a href="#geologists">Корпус геологов</a></li>
-            <li><a href="#translators">Корпус переводчиков</a></li>
-        </ul>
-    </nav>
+    <!-- Навигация -->
+    <div class="nav-container">
+        <nav>
+            <ul id="mainNav">
+                <li><a href="#common" class="active">Общие комнаты</a></li>
+                <li><a href="#medics">Корпус медиков</a></li>
+                <li><a href="#liquidators">Корпус ликвидаторов</a></li>
+                <li><a href="#geologists">Корпус геологов</a></li>
+                <li><a href="#translators">Корпус переводчиков</a></li>
+            </ul>
+        </nav>
+    </div>
     
-    <main>
+    <!-- Основной контент -->
+    <main id="content">
+        <!-- Общие комнаты -->
         <section id="common">
             <h2>Общие комнаты</h2>
             
@@ -219,6 +471,7 @@
             </div>
         </section>
         
+        <!-- Корпус медиков -->
         <section id="medics">
             <h2>Корпус медиков</h2>
             
@@ -271,6 +524,7 @@
             </div>
         </section>
         
+        <!-- Корпус ликвидаторов -->
         <section id="liquidators">
             <h2>Корпус ликвидаторов</h2>
             
@@ -323,6 +577,7 @@
             </div>
         </section>
         
+        <!-- Корпус геологов -->
         <section id="geologists">
             <h2>Корпус геологов</h2>
             
@@ -346,6 +601,7 @@
             </div>
         </section>
         
+        <!-- Корпус переводчиков -->
         <section id="translators">
             <h2>Корпус переводчиков</h2>
             
@@ -383,9 +639,120 @@
         </section>
     </main>
     
+    <!-- Футер -->
     <footer>
         <p>Ученый Корпус.</p>
     </footer>
+    
+    <!-- Кнопка "Наверх" -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+    
+    <script>
+        // Элементы DOM
+        const progressBar = document.getElementById('progressBar');
+        const backToTop = document.getElementById('backToTop');
+        const navLinks = document.querySelectorAll('nav a');
+        const sections = document.querySelectorAll('section');
+        const mainNav = document.getElementById('mainNav');
+        
+        // Обновление прогресс-бара
+        function updateProgressBar() {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        }
+        
+        // Показать/скрыть кнопку "Наверх"
+        function toggleBackToTop() {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+        
+        // Обновление активной ссылки навигации
+        function updateActiveNav() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    current = section.id;
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                    
+                    // Прокручиваем навигацию к активной ссылке на мобильных
+                    if (window.innerWidth < 768) {
+                        link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
+                }
+            });
+        }
+        
+        // Обработчик для кнопки "Наверх"
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Обработчик прокрутки
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            toggleBackToTop();
+            updateActiveNav();
+        });
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            toggleBackToTop();
+            updateActiveNav();
+            
+            // Плавное появление контента
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 50);
+        });
+        
+        // Улучшение для мобильных устройств
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        
+        // Предотвращение масштабирования при двойном тапе
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // Анимация при нажатии на карточки
+        const roomCards = document.querySelectorAll('.room-card');
+        roomCards.forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.style.transition = 'transform 0.1s';
+            });
+            
+            card.addEventListener('touchend', function() {
+                this.style.transition = '';
+            });
+        });
+        
+        // Загрузка страницы
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
-
 </html>
